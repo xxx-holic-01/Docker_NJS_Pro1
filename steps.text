@@ -1,0 +1,63 @@
+after building image successfully you need to run following commands 
+
+--> docker build .
+--> docker images
+or 
+--> docker build -t dikshafile/simpleweb .
+
+here dikshafile is id /tag 
+
+so new image name will be dikshafile/simpleweb:latest
+ now run the container
+
+--> docker run dikshafile/simpleweb
+you get 
+Listening to 8080
+=======================but===========
+you are still not able to visit local host 8080 on browser
+container have there own ports , so your container is not reciving any traffic
+so we need to perform port forwarding 
+============soooo============
+--> docker run -p 8080:8080 dikshafile/simpleweb
+==========================
+now if you try to visit localhost:8080 on browser
+==output text====
+Hi there , diksha welcomes you
+
+
+==================
+ports do not need to be identical
+=================
+--> docker run -p 5000:8080 dikshafile/simpleweb
+visit localhost:5000
+===================
+CAN WE CNANGE PORT INSIDE THE CONTAINER?
+======YES========
+app.listen(8080, () => {})
+replace 8080 to any port you want to make container accept trafiic through.
+
+
+====last step=======
+
+lets start shell inside the container
+
+--> docker run -it dikshafile/simpleweb sh
+
+it will start up the shell
+|
+| /#  ls
+| .....
+| /# ctrl + d
+|
+
+=======================edit index.js file=======
+Use WORKDIR /use/app
+===================
+build the container again 
+and after all commands , run this command
+--> docker exec -it <id_of_container> sh
+
+ ==================last step========
+
+
+
